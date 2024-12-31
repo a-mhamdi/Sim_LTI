@@ -7,19 +7,16 @@ import numpy as np
 
 tspan = np.arange(0, 7, .1)
 
-
 s = ctrl.tf("s")
 
 # Define initial parameters
 init_k = 1
 init_tau = 1
 
-
 def step_H(t, k, tau):
     H = k/(1+tau*s)
     _, y = ctrl.step_response(H, T=t)
     return y
-
 
 # Create the figure and the line that we will manipulate
 fig, ax = plt.subplots()
@@ -54,8 +51,6 @@ tau_slider = Slider(
 )
 
 # The function to be called anytime a slider's value changes
-
-
 def update(val):
     tspan = np.arange(
         0, 7*tau_slider.val, .01) if tau_slider.val >= .15 else np.arange(0, 1, .01)
@@ -67,7 +62,6 @@ def update(val):
     ax.set(xlim=xlim, ylim=ylim)
     fig.canvas.draw_idle()
 
-
 # Register the update function with each slider
 k_slider.on_changed(update)
 tau_slider.on_changed(update)
@@ -76,12 +70,11 @@ tau_slider.on_changed(update)
 resetax = plt.axes([0.8, 0.025, 0.1, 0.04])
 button = Button(resetax, 'Reset', hovercolor='0.975')
 
-
 def reset(event):
     k_slider.reset()
     tau_slider.reset()
 
-
 button.on_clicked(reset)
 
 plt.show()
+

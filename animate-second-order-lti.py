@@ -14,12 +14,10 @@ init_k = 1
 init_o = 1
 init_zeta = 1
 
-
 def step_H(t, k, o, zeta):
     H = (k*o**2)/(o**2+2*zeta*o*s+s**2)
     _, y = ctrl.step_response(H, T=t)
     return y
-
 
 # Create the figure and the line that we will manipulate
 fig, ax = plt.subplots()
@@ -65,8 +63,6 @@ zeta_slider = Slider(
 )
 
 # The function to be called anytime a slider's value changes
-
-
 def update(val):
     tspan = np.arange(
         0, 7/o_slider.val, .01) if o_slider.val != 0 else np.arange(0, 1, .01)
@@ -78,7 +74,6 @@ def update(val):
     ax.set(xlim=xlim, ylim=ylim)
     fig.canvas.draw_idle()
 
-
 # Register the update function with each slider
 k_slider.on_changed(update)
 o_slider.on_changed(update)
@@ -88,13 +83,12 @@ zeta_slider.on_changed(update)
 resetax = plt.axes([0.8, 0.025, 0.1, 0.04])
 button = Button(resetax, 'Reset', hovercolor='0.975')
 
-
 def reset(event):
     k_slider.reset()
     o_slider.reset()
     zeta_slider.reset()
 
-
 button.on_clicked(reset)
 
 plt.show()
+
